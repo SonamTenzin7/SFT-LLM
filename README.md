@@ -28,29 +28,62 @@ It has been trained using [TRL](https://github.com/huggingface/trl).
 
 
 ## Quick start
-
+---
+Model supports 6 unique visualization types:
+- Bar Chart ("bar")
+- Scatter Plot ("scatter")
+- Line Chart ("line")
+- Pie Chart ("pie")
+- Radar Chart ("radar")
+- Table ("table")
+---
+ 
 ```python
-from transformers import pipeline
+instruction = "Generate a detailed and diagrammatic report for Dagana Primary School based on the provided student data" 
+input_data = {
+  "school": "Dagana Primary School",
+  "academic_term": "First Term, 2025",
+  "students": [
+    {
+      "student_name": "Tashi",
+      "present": 76,
+      "total_days": 88,
+      "math": 78.5,
+      "english": 69.2,
+      "dzongkha": 82.0,
+      "science": 74.3
+    },
+    {
+      "student_name": "Dorji",
+      "present": 68,
+      "total_days": 88,
+      "math": 63.7,
+      "english": 71.5,
+      "dzongkha": 76.8,
+      "science": 60.0
+    },
+    {
+      "student_name": "Nima",
+      "present": 84,
+      "total_days": 88,
+      "math": 85.0,
+      "english": 80.4,
+      "dzongkha": 78.9,
+      "science": 82.1
+    }
+  ]
+}
 
-instruction = "Create a table to compare the key performance indicators of Druk School and Ugyen Academy." 
-input_data = [  
-  {"school": "Druk School", "avg_score": 88, "pass_rate": 95, "attendance": 97},
-  {"school": "Ugyen Academy", "avg_score": 91, "pass_rate": 98, "attendance": 96}]
 
-
-print("Model Response:")
+print("Model Output:")
 response = generate_response(instruction, input_data)
 print(response)
 ```
-Output: {"analysis_text": "Here is a table comparing the key performance indicators of Druk School and Ugyen Academy:", 
-"chart": {"type": "table", "data": 
-{"columns": 
-[{"label": "School", "type": "string"}, 
-{"label": "Average Score", "type": "number"}, 
-{"label": "Pass Rate", "type": "number"}, 
-{"label": "Attendance", "type": "number"}], 
-"rows": [{"data": ["Druk School", 88, 95, 97]}, 
-{"data": ["Ugyen Academy", 91, 98, 96]}]}}}
+Output: {"analysis_text": "Dagana Primary School's student performance in First Term, 2025, is detailed below.", "chart": {"type": "bar", "title": "Subject-wise Performance of Students", "data": {"labels": ["Tashi", "Dorji", "Nima"], "datasets": [{"label": "Math", "data": [78.5, 63.7, 85.0]}, {"label": "English", "data": [69.2, 71.5, 80.4]}, {"label": "Dzongkha", "data": [82.0, 76.8, 78.9]}, {"label": "Science", "data": [74.3, 60.0, 82.1]}]}}}
+
+
+<img width="871" height="544" alt="Screenshot 2025-08-08 at 7 15 24 PM" src="https://github.com/user-attachments/assets/0eb6c293-efcb-41ca-ab58-c7726b90c1e8" />
+
 
 ## Training procedure
 The training steps are included in the jupyter notebook. 
